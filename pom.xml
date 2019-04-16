@@ -6,7 +6,8 @@
   <groupId>org.springframework.samples</groupId>
   <artifactId>spring-petclinic</artifactId>
   <version>2.1.0.BUILD-SNAPSHOT</version>
-
+	<!-- package into a war file -->
+	<packaging>war</packaging>
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
@@ -29,7 +30,23 @@
 
     <jacoco.version>0.8.2</jacoco.version>
 
+    <!-- Sonar Profile for Static Application Security Testing -->    
   </properties>
+
+  <profiles>
+    <profile>
+      <id>QP1</id>
+      <properties>
+        <sonar.profile>Sonar way</sonar.profile>
+      </properties>
+    </profile>
+    <profile>
+      <id>QP2</id>
+      <properties>
+        <sonar.profile>FindBugs</sonar.profile>
+      </properties>
+    </profile>
+  </profiles>
 
   <dependencies>
     <!-- Spring and Spring Boot dependencies -->
@@ -57,6 +74,12 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-tomcat</artifactId>
+          <scope>provided</scope>
     </dependency>
 
     <!-- Databases - Uses HSQL by default -->
@@ -111,6 +134,8 @@
   </dependencies>
 
   <build>
+    <!-- petclinic - added by KZN -->
+    <finalName>petclinic</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
@@ -133,6 +158,26 @@
           </execution>
         </executions>
       </plugin>
+      <!-- owasp-dependency - added by KZN -->
+      <plugin>
+          <groupId>org.owasp</groupId>
+          <artifactId>dependency-check-maven</artifactId>
+          <version>5.0.0-M2</version>
+          <configuration>
+              <!-- <failBuildOnCVSS>8</failBuildOnCVSS> -->
+              <format>ALL</format>
+              <skipProvidedScope>true</skipProvidedScope>
+              <skipRuntimeScope>true</skipRuntimeScope>
+          </configuration>       
+          <executions>
+              <execution>
+                  <goals>
+                      <goal>check</goal>
+                  </goals>
+              </execution>
+          </executions>
+      </plugin>      
+      <!-- owasp-dependency - added by KZN -->
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
@@ -206,6 +251,40 @@
             <version>${mockito.version}</version>
           </dependency>
         </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <configuration>
+          <reportPlugins combine.children="override">
+            <plugin>
+              <groupId>org.owasp</groupId>
+              <artifactId>dependency-check-maven</artifactId>
+              <version>5.0.0-M2</version>
+              <!-- After supplying this configuration, the XML report is generated
+              without this configuration block, the XML report is not generated -->
+              <configuration>
+                <format>ALL</format>
+              </configuration>
+              <reportSets>
+                <reportSet>
+                  <reports>
+                    <report>aggregate</report>
+                  </reports>
+                </reportSet>
+              </reportSets>
+            </plugin>
+          </reportPlugins>
+        </configuration>
+        <executions>
+          <execution>
+            <id>dependency-check</id>
+            <phase>site</phase>
+            <goals>
+              <goal>site</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

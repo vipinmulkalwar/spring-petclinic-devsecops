@@ -51,4 +51,12 @@ public class Person extends BaseEntity {
         this.lastName = lastName;
     }
 
+     /**
+     * Custom method for tesing bug in code.
+     *
+     * @return a String with representation of class value
+     */ 
+    public String tostring() {
+        return null;
+    }
 }
