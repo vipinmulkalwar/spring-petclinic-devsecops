@@ -46,7 +46,7 @@
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
-          <url>https://github.com/khozema-nullwala/spring-petclinic.git</url>
+          <url>https://gitlab.com/akilagithub/spring-petclinic-devsecops.git</url>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
       <branches>
@@ -58,7 +58,7 @@
       <submoduleCfg class="list"/>
       <extensions/>
     </scm>
-    <scriptPath>Jenkinsfile</scriptPath>
+    <scriptPath>Jenkinsfile-Linux</scriptPath>
     <lightweight>true</lightweight>
   </definition>
   <triggers/>
