@@ -3,24 +3,24 @@ node {
     
     stage('Application_Build') {
         checkout scm
-        sh './mvnw clean package -DskipTests'
+        sh './mvn clean package -DskipTests'
     }    
     stage('Application_Dependency_Check') {
-        sh './mvnw dependency-check:check'        
+        sh './mvn dependency-check:check'        
         dependencyCheckPublisher canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '**/dependency-check-report.xml', unHealthy: ''
     }
     stage('Application_Unit_Test') {        
-        sh './mvnw compiler:testCompile surefire:test'
+        sh './mvn compiler:testCompile surefire:test'
         step([$class: 'JUnitResultArchiver', testResults: "**/surefire-reports/*.xml"])
     }    
     stage('Application_Code_Analysis') {        
         withSonarQubeEnv {
-            sh './mvnw sonar:sonar -Dsonar.projectKey=Petclinic_Static_Code_Analysis -Dsonar.projectName=Petclinic_Static_Code_Analysis -PQP1'
+            sh './mvn sonar:sonar -Dsonar.projectKey=Petclinic_Static_Code_Analysis -Dsonar.projectName=Petclinic_Static_Code_Analysis -PQP1'
         }
     }
     stage('Application_Static_Security_Testing') {        
         withSonarQubeEnv {
-            sh './mvnw sonar:sonar -Dsonar.projectKey=Petclinic_SAST -Dsonar.projectName=Petclinic_SAST -PQP2'
+            sh './mvn sonar:sonar -Dsonar.projectKey=Petclinic_SAST -Dsonar.projectName=Petclinic_SAST -PQP2'
         }        
     }
     stage('Application_Deploy') {
