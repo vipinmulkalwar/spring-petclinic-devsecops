@@ -6,8 +6,7 @@ node {
         sh 'mvn clean package -DskipTests'
     }    
     stage('Application_Dependency_Check') {
-        sh 'mvn dependency-check:check'        
-        dependencyCheckPublisher canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '**/dependency-check-report.xml', unHealthy: ''
+        sh '/home/user1/DevSecOps/dependency-check/bin/dependency-check.sh --project sppetclinic --scan ./'
     }
     stage('Application_Unit_Test') {        
         sh 'mvn compiler:testCompile surefire:test'
