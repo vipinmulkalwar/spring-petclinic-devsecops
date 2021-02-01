@@ -14,14 +14,10 @@ node {
     }    
     stage('Application_Code_Analysis') {        
         withSonarQubeEnv {
-            sh 'mvn sonar:sonar -Dsonar.login=fd38c4bb5fd8fecff09ad067a13ca2f10f079c8c'
+            sh 'mvn sonar:sonar -Dsonar.login=fd38c4bb5fd8fecff09ad067a13ca2f10f079c8c -Dsonar.projectKey=petclinickey -Dsonar.projectName=Simple Java project analyzed with the SonarQube Runner -Dsonar.organization=petclinicorg'
         }
     }
-    stage('Application_Static_Security_Testing') {        
-        withSonarQubeEnv {
-            sh 'mvn sonar:sonar -Dsonar.projectKey=Petclinic_SAST -Dsonar.projectName=Petclinic_SAST -PQP2'
-        }        
-    }
+   
     stage('Application_Deploy') {
         sh "cp ${workspace}/target/petclinic.war ${TOMCAT_HOME}/webapps/"
     }    
