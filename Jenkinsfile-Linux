@@ -22,6 +22,6 @@ node {
         sh "cp ${workspace}/target/petclinic.war ${TOMCAT_HOME}/webapps/"
     }    
     stage('Application_Dynamic_Security_Testing') {
-        sh '/home/training/DevSecOps/ZAP_2.9.0/zap.sh -cmd -quickurl http://localhost:8080/petclinic -quickprogress -quickout /home/training/DevSecOps/zapreport/reportout.xml'
+        sh '/home/training/DevSecOps/ZAP_2.10.0/zap.sh -cmd -quickurl http://localhost:8080/petclinic -quickprogress -quickout /home/training/DevSecOps/zapreport/reportout.xml'
     }
 }
