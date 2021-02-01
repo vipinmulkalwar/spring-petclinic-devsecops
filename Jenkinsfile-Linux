@@ -14,7 +14,7 @@ node {
     }    
     stage('Application_Code_Analysis') {        
         withSonarQubeEnv {
-            sh 'mvn sonar:sonar -Dsonar.projectKey=Petclinic_Static_Code_Analysis -Dsonar.projectName=Petclinic_Static_Code_Analysis -PQP1'
+            sh 'mvn sonar:sonar -Dsonar.login=fd38c4bb5fd8fecff09ad067a13ca2f10f079c8c'
         }
     }
     stage('Application_Static_Security_Testing') {        
