@@ -9,7 +9,7 @@
         <hudson.model.StringParameterDefinition>
           <name>TOMCAT_HOME</name>
           <description></description>
-          <defaultValue>C:\apache-tomcat-8.5.39</defaultValue>
+          <defaultValue>/home/training/DevSecOps/apache-tomcat-9.0.41/</defaultValue>
           <trim>false</trim>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
@@ -21,7 +21,7 @@
         <hudson.model.StringParameterDefinition>
           <name>OWASP_ZAP_HOME</name>
           <description></description>
-          <defaultValue>C:/Program Files/OWASP/Zed Attack Proxy</defaultValue>
+          <defaultValue>/root/.ZAP</defaultValue>
           <trim>false</trim>
         </hudson.model.StringParameterDefinition>
         <hudson.model.StringParameterDefinition>
@@ -46,7 +46,7 @@
       <configVersion>2</configVersion>
       <userRemoteConfigs>
         <hudson.plugins.git.UserRemoteConfig>
-          <url>https://gitlab.com/akilagithub/spring-petclinic-devsecops.git</url>
+          <url>https://github.com/vipinmulkalwar/spring-petclinic-devsecops.git</url>
         </hudson.plugins.git.UserRemoteConfig>
       </userRemoteConfigs>
       <branches>
